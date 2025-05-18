@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dennis Cleaning Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #fefefe;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    header {
+      background: #28a745; /* Fresh Green */
+      color: white;
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      animation: slideDown 1s ease forwards;
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+    nav a {
+      margin-left: 25px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #f4c242; /* Soft Gold */
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1581579189926-9bcfef6d54a7?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 128, 0, 0.5); /* Darker green overlay */
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+    }
+    .hero-content h2 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+    .btn-primary {
+      background: #f4c242; /* Soft Gold */
+      color: #222;
+      padding: 15px 35px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(244,194,66,0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #ddb830;
+      box-shadow: 0 8px 18px rgba(221,184,48,0.8);
+    }
+
+    /* Services Section */
+    .services {
+      padding: 60px 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    .services h3 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-weight: 700;
+      color: #28a745; /* Fresh Green */
+    }
+    .service-list {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .service-item {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      flex: 1 1 280px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .service-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .service-item img {
+      width: 90px;
+      margin-bottom: 20px;
+    }
+    .service-item h4 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #28a745; /* Fresh Green */
+    }
+    .service-item p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      background: #28a745; /* Fresh Green */
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .testimonials h3 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+    .testimonial-slider {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial {
+      padding: 20px 40px;
+      font-style: italic;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      min-height: 120px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+    }
+    .testimonial.active {
+      opacity: 1;
+      position: relative;
+    }
+    .testimonial-author {
+      margin-top: 15px;
+      font-weight: 700;
+      color: #f4c242; /* Soft Gold */
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: 0 auto 60px;
+      text-align: center;
+    }
+    .contact h3 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-weight: 700;
+      color: #28a745; /* Fresh Green */
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact input, .contact textarea {
+      padding: 15px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+    .contact input:focus, .contact textarea:focus {
+      outline: none;
+      border-color: #28a745; /* Fresh Green */
+      box-shadow: 0 0 8px rgba(40,167,69,0.4);
+    }
+    .contact button {
+      background: #28a745; /* Fresh Green */
+      color: white;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .contact button:hover {
+      background: #1e7e34;
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #bbb;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes slideDown {
+      from {opacity: 0; transform: translateY(-50px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .service-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      header .container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+      .hero-content h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Dennis Cleaning Services</h1>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" role="banner">
+    <div class="hero-content">
+      <h2>Your Trusted Cleaning Experts</h2>
+      <p>Professional home & office cleaning services that leave your space spotless.</p>
+      <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book a Cleaning</button>
+    </div>
+  </section>
+
+  <section id="services" class="services" aria-label="Services we offer">
+    <h3>Our Services</h3>
+    <div class="service-list">
+      <div class="service-item" tabindex="0">
+        <img src="https://img.icons8.com/fluency/96/000000/broom.png" alt="Home cleaning icon" />
+        <h4>Home Cleaning</h4>
+        <p>Expert deep cleaning to keep your home fresh and spotless.</p>
+      </div>
+      <div class="service-item" tabindex="0">
+        <img src="https://img.icons8.com/fluency/96/000000/office.png" alt="Office cleaning icon" />
+        <h4>Office Cleaning</h4>
+        <p>Maintain a clean and healthy work environment for your team.</p>
+      </div>
+      <div class="service-item" tabindex="0">
+        <img src="https://img.icons8.com/fluency/96/000000/vacuum-cleaner.png" alt="Carpet cleaning icon" />
+        <h4>Carpet & Upholstery</h4>
+        <p>Refresh carpets and furniture with our professional care.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials" aria-label="Customer testimonials">
+    <h3>What Our Customers Say</h3>
+    <div class="testimonial-slider" aria-live="polite">
+      <div class="testimonial active">
+        "Dennis Cleaning Services made my home sparkle! Friendly and professional staff."
+        <div class="testimonial-author">— Sarah J.</div>
+      </div>
+      <div class="testimonial">
+        "Reliable, thorough, and affordable. Highly recommend Dennis Cleaning Services."
+        <div class="testimonial-author">— Mark T.</div>
+      </div>
+      <div class="testimonial">
+        "My office has never looked better. Great job and fast service!"
+        <div class="testimonial-author">— Linda K.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-label="Contact form">
+    <h3>Get in Touch</h3>
+    <form id="contactForm" onsubmit="return handleSubmit(event)">
+      <input type="text" id="name" name="name" placeholder="Your Name" required aria-required="true" />
+      <input type="email" id="email" name="email" placeholder="Your Email" required aria-required="true" />
+      <textarea id="message" name="message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Dennis Cleaning Services. All rights reserved.
+  </footer>
+
+  <script>
+    // Simple testimonial slider
+    const testimonials = document.querySelectorAll('.testimonial');
+    let currentIndex = 0;
+    setInterval(() => {
+      testimonials[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % testimonials.length;
+      testimonials[currentIndex].classList.add('active');
+    }, 7000);
+
+    // Handle form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Thank you for contacting Dennis Cleaning Services! We will get back to you shortly.');
+      e.target.reset();
+    }
+  </script>
+
+</body>
+</html>
